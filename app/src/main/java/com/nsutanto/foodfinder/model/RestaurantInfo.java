@@ -8,18 +8,24 @@ public class RestaurantInfo {
     private String id;
     @SerializedName("name")
     private String name;
+    @SerializedName("location")
+    private Location location;
+    @SerializedName("cuisines")
+    private String cuisines;
+    @SerializedName("thumb")
+    private String thumb;
+    @SerializedName("featured_image")
+    private String featured_image;
 
-    public RestaurantInfo(String id, String name) {
+
+    public RestaurantInfo(String id, String name, Location location, String cuisines, String thumb, String featured_image) {
         this.id = id;
         this.name = name;
+        this.location = location;
+        this.cuisines = cuisines;
+        this.thumb = thumb;
+        this.featured_image = featured_image;
     }
-
-
-    //private Location location;
-    //private List<Ingredient> ingredients;
-    //private List<Step> steps;
-    //private int servings;
-    //private String image;
 
     public String getId() {
         return id;
@@ -30,6 +36,7 @@ public class RestaurantInfo {
     }
 
     public String getName() {
+
         return name;
     }
 
@@ -37,7 +44,35 @@ public class RestaurantInfo {
         this.name = name;
     }
 
-    //public List<Ingredient> getIngredients() {
-    //    return ingredients;
-    //}
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public String getCuisines() {
+        return cuisines;
+    }
+
+    public void setCuisines(String cuisines) {
+        this.cuisines = cuisines;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+
+    public String getFeatured_image() {
+        return featured_image;
+    }
+
+    public void setFeatured_image(String featured_image) {
+        this.featured_image = featured_image;
+    }
 }
