@@ -8,6 +8,10 @@ public class Restaurant {
     @SerializedName("restaurant")
     private RestaurantInfo restaurantInfo;
 
+    public Restaurant(RestaurantInfo restaurantInfo) {
+        this.restaurantInfo = restaurantInfo;
+    }
+
     public RestaurantInfo getRestaurantInfo() {
         return restaurantInfo;
     }
@@ -16,7 +20,5 @@ public class Restaurant {
         this.restaurantInfo = restaurantInfo;
     }
 
-    public Restaurant(RestaurantInfo restaurantInfo) {
-        this.restaurantInfo = restaurantInfo;
-    }
+
 }
