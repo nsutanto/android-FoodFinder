@@ -9,22 +9,37 @@ import com.nsutanto.foodfinder.R;
 import com.nsutanto.foodfinder.fragment.RestaurantLayoutFragment;
 import com.nsutanto.foodfinder.util.constant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
 
+    private final List<Fragment> fragmentList = new ArrayList<>();
     private static final int NUM_PAGES = 3;
     private Context context;
 
     public RestaurantPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
+
+        RestaurantLayoutFragment lunchFragment = new RestaurantLayoutFragment();
+        lunchFragment.setCategory(constant.LUNCH);
+
+        RestaurantLayoutFragment dinnerFragment = new RestaurantLayoutFragment();
+        dinnerFragment.setCategory(constant.DINNER);
+
+        RestaurantLayoutFragment favoriteFragment = new RestaurantLayoutFragment();
+        favoriteFragment.setCategory(constant.LUNCH);
+
+        fragmentList.add(lunchFragment);
+        fragmentList.add(dinnerFragment);
+        fragmentList.add(favoriteFragment);
     }
 
     @Override
     public Fragment getItem(int position) {
 
-        RestaurantLayoutFragment restaurantLayoutFragment = new RestaurantLayoutFragment();
-        restaurantLayoutFragment.setFilter(position);
-        return restaurantLayoutFragment;
+        return fragmentList.get(position);
     }
 
     @Override
