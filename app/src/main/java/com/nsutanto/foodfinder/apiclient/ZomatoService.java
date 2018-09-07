@@ -1,10 +1,7 @@
 package com.nsutanto.foodfinder.apiclient;
 
 import com.nsutanto.foodfinder.BuildConfig;
-import com.nsutanto.foodfinder.model.Restaurant;
 import com.nsutanto.foodfinder.model.Search;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -22,6 +19,7 @@ public interface ZomatoService {
     })
     @GET("/api/v2.1/search")
     Call<Search> search(
-            @Query("entity_id") String entityId,
-            @Query("entity_type") String entityType);
+            @Query("lat") Double latitude,
+            @Query("lon") Double longitude,
+            @Query("category") String category);
 }
