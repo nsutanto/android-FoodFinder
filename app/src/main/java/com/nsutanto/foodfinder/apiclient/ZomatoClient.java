@@ -16,8 +16,7 @@ public class ZomatoClient {
     private static Retrofit retrofit;
     private static final String BASE_URL = "https://developers.zomato.com";
 
-
-    public static Retrofit getRetrofitInstance() {
+    private static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -27,9 +26,9 @@ public class ZomatoClient {
         return retrofit;
     }
 
-    public static void GetRestaurant(String city) {
+    public static void GetRestaurant(Double latitude, Double longitude, String category) {
         ZomatoService service = getRetrofitInstance().create(ZomatoService.class);
-        Call<Search> call = service.search("280", "city");
+        Call<Search> call = service.search(latitude, longitude, category);
         call.enqueue(new Callback<Search>() {
             @Override
             public void onResponse(Call<Search> call, Response<Search> response) {
