@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nsutanto.foodfinder.R;
-import com.nsutanto.foodfinder.listener.IRestaurantListener;
+import com.nsutanto.foodfinder.listener.IRestaurantAdapterListener;
 import com.nsutanto.foodfinder.model.Restaurant;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,16 +26,19 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
     private List<Restaurant> restaurants = new ArrayList<>();
     private Context context;
-    private static IRestaurantListener restaurantListener;
+    private static IRestaurantAdapterListener restaurantListener;
 
 
-    public RestaurantAdapter(IRestaurantListener restaurantListener) {
+    public RestaurantAdapter(IRestaurantAdapterListener restaurantListener) {
         this.restaurantListener = restaurantListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.iv_restaurant)
         ImageView iv_restaurant;
+
+        @BindView(R.id.tv_restaurant_name)
+        TextView tv_restaurant;
 
         public ViewHolder(View v) {
             super(v);
@@ -42,6 +47,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         }
 
         public void bind(Restaurant restaurant) {
+            tv_restaurant.setText(restaurant.getRestaurantInfo().getName());
             String posterPath = restaurant.getRestaurantInfo().getThumb();
             if (posterPath.equals("") == false) {
                 Picasso.get()
@@ -82,6 +88,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
     public void setRestaurants(List<Restaurant> restaurants) {
         if (restaurants != null) {
+
+            for (Iterator<Restaurant> iter = restaurants.listIterator(); iter.hasNext(); ) {
+                Restaurant restaurant = iter.next();
+                if (restaurant.getRestaurantInfo().getThumb().equals("")) {
+                    iter.remove();
+                }
+            }
+
             this.restaurants = restaurants;
             notifyDataSetChanged();
         }
