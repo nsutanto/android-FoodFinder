@@ -8,13 +8,14 @@
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
 
         android:id="@+id/iv_restaurant"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/restaurant_description"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:adjustViewBounds="true">
 
     </ImageView>
 
@@ -22,7 +23,6 @@
         android:id="@+id/tv_restaurant_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_restaurant" />
