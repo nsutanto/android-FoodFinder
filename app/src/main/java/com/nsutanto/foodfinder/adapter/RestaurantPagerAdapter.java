@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.nsutanto.foodfinder.R;
-import com.nsutanto.foodfinder.fragment.RestaurantLayoutFragment;
+import com.nsutanto.foodfinder.ui.RestaurantLayoutFragment;
 import com.nsutanto.foodfinder.util.constant;
 
 import java.util.ArrayList;
