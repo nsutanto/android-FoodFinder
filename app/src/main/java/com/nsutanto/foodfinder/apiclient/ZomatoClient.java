@@ -3,11 +3,11 @@ package com.nsutanto.foodfinder.apiclient;
 import com.nsutanto.foodfinder.model.Restaurant;
 import com.nsutanto.foodfinder.model.Search;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -26,25 +26,16 @@ public class ZomatoClient {
         return retrofit;
     }
 
-    public static void GetRestaurant(Double latitude, Double longitude, String category) {
+    public static ArrayList<Restaurant> GetRestaurant(Double latitude, Double longitude, String category) {
         ZomatoService service = getRetrofitInstance().create(ZomatoService.class);
         Call<Search> call = service.search(latitude, longitude, category);
-        call.enqueue(new Callback<Search>() {
-            @Override
-            public void onResponse(Call<Search> call, Response<Search> response) {
-                Search search = response.body();
-                List<Restaurant> restaurants = search.getRestaurants();
-            }
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+        try {
+            Search search = call.execute().body();
+            restaurants = search.getRestaurants();
+        } catch (IOException ex) {
 
-            @Override
-            public void onFailure(Call<Search> call, Throwable t) {
-                String url = call.request().url().toString();
-                String header = call.request().headers().toString();
-
-            }
-        });
+        }
+        return restaurants;
     }
-
-
-
 }
