@@ -1,4 +1,4 @@
-package com.nsutanto.foodfinder.fragment;
+package com.nsutanto.foodfinder.ui;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -16,7 +16,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.google.android.gms.location.LocationResult;
 import com.nsutanto.foodfinder.R;
@@ -25,7 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.nsutanto.foodfinder.adapter.RestaurantAdapter;
-import com.nsutanto.foodfinder.listener.IRestaurantListener;
+import com.nsutanto.foodfinder.listener.IRestaurantAdapterListener;
+import com.nsutanto.foodfinder.listener.IRestaurantFragmentListener;
 import com.nsutanto.foodfinder.listener.IRestaurantSearchListener;
 import com.nsutanto.foodfinder.model.Restaurant;
 import com.nsutanto.foodfinder.task.GpsManager;
@@ -38,7 +38,7 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 
-public class RestaurantLayoutFragment extends Fragment implements GpsManager.Callback, IRestaurantSearchListener, IRestaurantListener {
+public class RestaurantLayoutFragment extends Fragment implements GpsManager.Callback, IRestaurantSearchListener, IRestaurantAdapterListener {
 
     @BindView(R.id.rv_restaurant)
     RecyclerView rv_restaurant;
@@ -51,7 +51,7 @@ public class RestaurantLayoutFragment extends Fragment implements GpsManager.Cal
     private GpsManager gpsManager;
     private RestaurantAdapter restaurantAdapter;
     private GridLayoutManager layoutManager;
-
+    private IRestaurantFragmentListener iRestaurantFragmentListener;
 
 
     public void setCategory(int category) {
@@ -70,6 +70,18 @@ public class RestaurantLayoutFragment extends Fragment implements GpsManager.Cal
 
         initRecyclerView(view);
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            iRestaurantFragmentListener = (IRestaurantFragmentListener) context;
+        } catch (ClassCastException ec) {
+            throw new ClassCastException(context.toString()
+                    + " must implement listener");
+        }
     }
 
 
@@ -110,12 +122,11 @@ public class RestaurantLayoutFragment extends Fragment implements GpsManager.Cal
     }
 
     public void onPostExecute(ArrayList<Restaurant> restaurants) {
-        rv_restaurant.setAdapter(restaurantAdapter);
         restaurantAdapter.setRestaurants(restaurants);
     }
 
     public void onRestaurantClick(Restaurant restaurant) {
-
+        iRestaurantFragmentListener.onRestaurantClick(restaurant);
     }
 
     private void initRecyclerView(View view) {
