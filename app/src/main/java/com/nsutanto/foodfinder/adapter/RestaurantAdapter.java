@@ -7,14 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.nsutanto.foodfinder.R;
 import com.nsutanto.foodfinder.listener.IRestaurantListener;
 import com.nsutanto.foodfinder.model.Restaurant;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
@@ -29,7 +32,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        //@BindView(R.id.tv_recipe) TextView recipeTitle;
+        @BindView(R.id.iv_restaurant)
+        ImageView iv_restaurant;
 
         public ViewHolder(View v) {
             super(v);
@@ -38,13 +42,18 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         }
 
         public void bind(Restaurant restaurant) {
-
+            String posterPath = restaurant.getRestaurantInfo().getThumb();
+            if (posterPath.equals("") == false) {
+                Picasso.get()
+                        .load(posterPath)
+                        .into(iv_restaurant);
+            }
         }
 
         @Override
         public void onClick(View view) {
-            //int position = getAdapterPosition();
-            //recipeListener.OnRecipeClick(recipes.get(position));
+            int position = getAdapterPosition();
+            restaurantListener.onRestaurantClick(restaurants.get(position));
         }
     }
 
@@ -52,9 +61,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     public RestaurantAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        //View view = inflater.inflate(R.layout.recipe_item, parent, false);
-        //return new ViewHolder(view);
-        return null;
+        View view = inflater.inflate(R.layout.restaurant_list_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
