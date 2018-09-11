@@ -9,12 +9,14 @@ import android.os.Bundle;
 import com.nsutanto.foodfinder.R;
 import com.nsutanto.foodfinder.adapter.RestaurantPagerAdapter;
 import com.nsutanto.foodfinder.listener.IRestaurantFragmentListener;
+import com.nsutanto.foodfinder.listener.IRestaurantInfoFragmentListener;
 import com.nsutanto.foodfinder.model.Restaurant;
+import com.nsutanto.foodfinder.model.RestaurantInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements IRestaurantFragmentListener {
+public class MainActivity extends AppCompatActivity implements IRestaurantFragmentListener, IRestaurantInfoFragmentListener {
 
     @BindView(R.id.pager_restaurant)
     ViewPager vp_restaurant;
@@ -36,8 +38,16 @@ public class MainActivity extends AppCompatActivity implements IRestaurantFragme
 
     public void onRestaurantClick(Restaurant restaurant) {
 
+       openRestaurantDetail(restaurant.getRestaurantInfo());
+    }
+
+    public void onRestaurantInfoClick(RestaurantInfo restaurantInfo) {
+        openRestaurantDetail(restaurantInfo);
+    }
+
+    private void openRestaurantDetail(RestaurantInfo restaurantInfo) {
         Intent intent = new Intent(this, RestaurantDetailActivity.class);
-        intent.putExtra("restaurantInfo", restaurant.getRestaurantInfo());
+        intent.putExtra("restaurantInfo", restaurantInfo);
         startActivity(intent);
     }
 
