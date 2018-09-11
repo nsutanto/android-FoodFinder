@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.nsutanto.foodfinder.R;
+import com.nsutanto.foodfinder.ui.FavoriteRestaurantsLayoutFragment;
 import com.nsutanto.foodfinder.ui.RestaurantLayoutFragment;
 import com.nsutanto.foodfinder.util.constant;
 
@@ -28,8 +29,7 @@ public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
         RestaurantLayoutFragment dinnerFragment = new RestaurantLayoutFragment();
         dinnerFragment.setCategory(constant.DINNER);
 
-        RestaurantLayoutFragment favoriteFragment = new RestaurantLayoutFragment();
-        favoriteFragment.setCategory(constant.LUNCH);
+        FavoriteRestaurantsLayoutFragment favoriteFragment = new FavoriteRestaurantsLayoutFragment();
 
         fragmentList.add(lunchFragment);
         fragmentList.add(dinnerFragment);
