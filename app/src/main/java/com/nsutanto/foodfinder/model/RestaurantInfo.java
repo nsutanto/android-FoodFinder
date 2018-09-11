@@ -39,14 +39,18 @@ public class RestaurantInfo implements Parcelable {
     @SerializedName("featured_image")
     private String featured_image;
 
+    @ColumnInfo(name = "is_favorite")
+    private int favorite;
 
-    public RestaurantInfo(@NonNull String id, String name, Location location, String cuisines, String thumb, String featured_image) {
+
+    public RestaurantInfo(@NonNull String id, String name, Location location, String cuisines, String thumb, String featured_image, int favorite) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.cuisines = cuisines;
         this.thumb = thumb;
         this.featured_image = featured_image;
+        this.favorite = favorite;
     }
 
     public String getId() {
@@ -94,6 +98,10 @@ public class RestaurantInfo implements Parcelable {
         return featured_image;
     }
 
+    public int getFavorite() { return favorite; }
+
+    public void setFavorite(int favorite) { this.favorite = favorite; }
+
     public void setFeatured_image(String featured_image) {
         this.featured_image = featured_image;
     }
@@ -120,6 +128,7 @@ public class RestaurantInfo implements Parcelable {
         out.writeString(cuisines);
         out.writeString(thumb);
         out.writeString(featured_image);
+        out.writeInt(favorite);
     }
 
     @Override
@@ -134,5 +143,6 @@ public class RestaurantInfo implements Parcelable {
         cuisines = in.readString();
         thumb = in.readString();
         featured_image = in.readString();
+        favorite = in.readInt();
     }
 }
