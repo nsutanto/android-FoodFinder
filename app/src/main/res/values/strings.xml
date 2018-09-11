@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">FoodFinder</string>
-    <string name="lunch">Lunch</string>
+    <string name="breakfast">Breakfast</string>
     <string name="dinner">Dinner</string>
     <string name="favorite">Favorite</string>
+    <string name="address">Address</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ImageContentDescription">Image</string>
+    <string name="star">Star</string>
+
 
     <string name="restaurant_description">Restaurant</string>
 
