@@ -23,15 +23,15 @@ public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         this.context = context;
 
-        RestaurantLayoutFragment lunchFragment = new RestaurantLayoutFragment();
-        lunchFragment.setCategory(constant.LUNCH);
+        RestaurantLayoutFragment breakfastFragment = new RestaurantLayoutFragment();
+        breakfastFragment.setCategory(constant.BREAKFAST);
 
         RestaurantLayoutFragment dinnerFragment = new RestaurantLayoutFragment();
         dinnerFragment.setCategory(constant.DINNER);
 
         FavoriteRestaurantsLayoutFragment favoriteFragment = new FavoriteRestaurantsLayoutFragment();
 
-        fragmentList.add(lunchFragment);
+        fragmentList.add(breakfastFragment);
         fragmentList.add(dinnerFragment);
         fragmentList.add(favoriteFragment);
     }
@@ -46,8 +46,8 @@ public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         String title;
         switch (position) {
-            case constant.LUNCH:
-                title = context.getString(R.string.lunch);
+            case constant.BREAKFAST:
+                title = context.getString(R.string.breakfast);
                 break;
             case constant.DINNER:
                 title = context.getString(R.string.dinner);

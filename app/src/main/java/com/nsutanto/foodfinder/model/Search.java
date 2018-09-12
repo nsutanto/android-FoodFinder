@@ -19,7 +19,9 @@ public class Search {
         this.restaurants = restaurants;
     }
 
-    public int getResults_found() { return results_found; }
+    public int getResults_found() {
+        return results_found;
+    }
 
     public void setResults_found(int results_found) {
         this.results_found = results_found;
