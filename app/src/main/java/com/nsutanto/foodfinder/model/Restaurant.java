@@ -19,6 +19,4 @@ public class Restaurant {
     public void setRestaurantInfo(RestaurantInfo restaurantInfo) {
         this.restaurantInfo = restaurantInfo;
     }
-
-
 }

@@ -26,7 +26,7 @@ public class ZomatoClient {
         return retrofit;
     }
 
-    public static ArrayList<Restaurant> GetRestaurant(Double latitude, Double longitude, String category) {
+    public static synchronized ArrayList<Restaurant> GetRestaurant(Double latitude, Double longitude, String category) {
         ZomatoService service = getRetrofitInstance().create(ZomatoService.class);
         Call<Search> call = service.search(latitude, longitude, category);
         ArrayList<Restaurant> restaurants = new ArrayList<>();
