@@ -32,6 +32,9 @@ public class RestaurantDetailActivity extends AppCompatActivity  implements OnMa
     @BindView(R.id.tv_address)
     TextView tv_address;
 
+    @BindView(R.id.tv_restaurant_name)
+    TextView tv_restaurant_name;
+
     @BindView(R.id.iv_star)
     ImageView iv_star;
 
@@ -52,15 +55,10 @@ public class RestaurantDetailActivity extends AppCompatActivity  implements OnMa
         restaurantInfo = intent.getParcelableExtra("restaurantInfo");
 
         updateUI(restaurantInfo);
-        setupFragment();
+        setupMapFragment();
     }
 
-    private void setupFragment() {
-        /*
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction()
-                .add(R.id.map_container, mapFragment)
-                .commit();*/
+    private void setupMapFragment() {
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
@@ -73,7 +71,7 @@ public class RestaurantDetailActivity extends AppCompatActivity  implements OnMa
         this.googleMap = googleMap;
 
         LatLng restaurantLocation = new LatLng(getLatitude(), getLongitude());
-        googleMap.addMarker(new MarkerOptions().position(restaurantLocation).title(restaurantInfo.getName()));
+        googleMap.addMarker(new MarkerOptions().position(restaurantLocation).title(getRestaurantName()));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(restaurantLocation, 15));
     }
 
@@ -89,7 +87,8 @@ public class RestaurantDetailActivity extends AppCompatActivity  implements OnMa
         Location location = restaurantInfo.getLocation();
         String address = location.getAddress();
 
-        tv_address.setText(R.string.address + ": " + address);
+        tv_address.setText(getString(R.string.address) + ": " + address);
+        tv_restaurant_name.setText(getRestaurantName());
 
         if (restaurantInfo.getFavorite() == 1) {
             fillStar();
