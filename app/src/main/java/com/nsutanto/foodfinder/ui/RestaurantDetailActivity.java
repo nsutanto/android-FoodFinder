@@ -1,17 +1,15 @@
 package com.nsutanto.foodfinder.ui;
 
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
-
 import com.nsutanto.foodfinder.R;
 import com.nsutanto.foodfinder.model.AppDatabase;
 import com.nsutanto.foodfinder.model.Location;
-import com.nsutanto.foodfinder.model.Restaurant;
 import com.nsutanto.foodfinder.model.RestaurantInfo;
 import com.nsutanto.foodfinder.util.AppExecutors;
 import com.squareup.picasso.Picasso;
@@ -32,6 +30,8 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
     private RestaurantInfo restaurantInfo;
     private AppDatabase appDatabase;
+    private MapFragment mapFragment = new MapFragment();
+
 
 
     @Override
@@ -47,6 +47,14 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         restaurantInfo = intent.getParcelableExtra("restaurantInfo");
 
         updateUI(restaurantInfo);
+        setupFragment();
+    }
+
+    private void setupFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .add(R.id.map_container, mapFragment)
+                .commit();
     }
 
     private void updateUI(RestaurantInfo restaurantInfo) {
