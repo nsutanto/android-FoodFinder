@@ -7,6 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.nsutanto.foodfinder.R;
 import com.nsutanto.foodfinder.model.AppDatabase;
 import com.nsutanto.foodfinder.model.Location;
@@ -17,7 +24,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RestaurantDetailActivity extends AppCompatActivity {
+public class RestaurantDetailActivity extends AppCompatActivity  implements OnMapReadyCallback {
 
     @BindView(R.id.toolbarImage)
     ImageView toolBarImage;
@@ -30,9 +37,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
     private RestaurantInfo restaurantInfo;
     private AppDatabase appDatabase;
-    private MapFragment mapFragment = new MapFragment();
-
-
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +56,25 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     }
 
     private void setupFragment() {
+        /*
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
                 .add(R.id.map_container, mapFragment)
-                .commit();
+                .commit();*/
+
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+
+        LatLng restaurantLocation = new LatLng(getLatitude(), getLongitude());
+        googleMap.addMarker(new MarkerOptions().position(restaurantLocation).title(restaurantInfo.getName()));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(restaurantLocation, 15));
     }
 
     private void updateUI(RestaurantInfo restaurantInfo) {
@@ -100,6 +120,20 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             unfillStar();
             restaurantInfo.setFavorite(0);
         }
+    }
+
+    private Double getLongitude() {
+        Double longitude = Double.parseDouble(restaurantInfo.getLocation().getLongitude());
+        return longitude;
+    }
+
+    private Double getLatitude() {
+        Double latitude = Double.parseDouble(restaurantInfo.getLocation().getLatitude());
+        return latitude;
+    }
+
+    public String getRestaurantName() {
+        return restaurantInfo.getName();
     }
 
     private void fillStar() {
