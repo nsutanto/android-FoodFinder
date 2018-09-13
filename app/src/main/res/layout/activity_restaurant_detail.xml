@@ -83,13 +83,14 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:srcCompat="@drawable/ic_star" />
 
-            <FrameLayout
-                android:id="@+id/map_container"
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:id="@+id/map"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_address"/>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
