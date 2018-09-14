@@ -116,9 +116,9 @@ public class RestaurantLayoutFragment extends Fragment implements GpsManager.Cal
 
     public String getCategory() {
         if (category == constant.BREAKFAST) {
-            return "breakfast";
+            return constant.ZOMATO_BREAKFAST_ID;
         }
-        return "dinner";
+        return constant.ZOMATO_DINNER_ID;
     }
 
     public void onPostExecute(ArrayList<Restaurant> restaurants) {
