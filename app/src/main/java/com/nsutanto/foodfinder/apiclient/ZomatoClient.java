@@ -37,7 +37,7 @@ public class ZomatoClient {
             restaurants = search.getRestaurants();
         } catch (IOException ex) {
             Timber.d("Error get restaurant: " + ex.getMessage());
-
+            return null;
         }
         Timber.v("<< Zomato Get Restaurant.");
         return restaurants;
