@@ -10,6 +10,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 public class ZomatoClient {
 
@@ -27,6 +28,7 @@ public class ZomatoClient {
     }
 
     public static synchronized ArrayList<Restaurant> GetRestaurant(Double latitude, Double longitude, String category) {
+        Timber.v(">> Zomato Get Restaurant. Latitude: " + latitude + " Longitude: " + longitude + " Category: " + category);
         ZomatoService service = getRetrofitInstance().create(ZomatoService.class);
         Call<Search> call = service.search(latitude, longitude, category);
         ArrayList<Restaurant> restaurants = new ArrayList<>();
@@ -34,8 +36,10 @@ public class ZomatoClient {
             Search search = call.execute().body();
             restaurants = search.getRestaurants();
         } catch (IOException ex) {
+            Timber.d("Error get restaurant: " + ex.getMessage());
 
         }
+        Timber.v("<< Zomato Get Restaurant.");
         return restaurants;
     }
 }
