@@ -114,14 +114,14 @@ public class RestaurantLayoutFragment extends Fragment implements GpsManager.Cal
         if (info != null && info.isConnectedOrConnecting()) {
             new SearchRestaurantTask().execute(this);
         } else {
-            showError();
+            showError(getResources().getString(R.string.internet_fail));
         }
     }
 
-    private void showError() {
+    private void showError(String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle(getResources().getString(R.string.alert));
-        alertDialog.setMessage(getResources().getString(R.string.internet_fail));
+        alertDialog.setMessage(message);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -147,7 +147,11 @@ public class RestaurantLayoutFragment extends Fragment implements GpsManager.Cal
     }
 
     public void onPostExecute(ArrayList<Restaurant> restaurants) {
-        restaurantAdapter.setRestaurants(restaurants);
+        if (restaurants != null) {
+            restaurantAdapter.setRestaurants(restaurants);
+        } else {
+            showError(getResources().getString(R.string.fail_to_get_restaurant));
+        }
     }
 
     public void onRestaurantClick(Restaurant restaurant) {
