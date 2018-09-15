@@ -19,15 +19,19 @@ public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
     private static final int NUM_PAGES = 3;
     private Context context;
 
-    public RestaurantPagerAdapter(FragmentManager fm, Context context) {
+    public RestaurantPagerAdapter(FragmentManager fm, Context context, double latitude, double longitude) {
         super(fm);
         this.context = context;
 
         RestaurantLayoutFragment breakfastFragment = new RestaurantLayoutFragment();
         breakfastFragment.setCategory(constant.BREAKFAST);
+        breakfastFragment.setLatitude(latitude);
+        breakfastFragment.setLongitude(longitude);
 
         RestaurantLayoutFragment dinnerFragment = new RestaurantLayoutFragment();
         dinnerFragment.setCategory(constant.DINNER);
+        dinnerFragment.setLatitude(latitude);
+        dinnerFragment.setLongitude(longitude);
 
         FavoriteRestaurantsLayoutFragment favoriteFragment = new FavoriteRestaurantsLayoutFragment();
 
