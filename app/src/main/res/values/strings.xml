@@ -7,7 +7,9 @@
     <string name="restaurant_name">Restaurant Name</string>
     <string name="alert">Alert</string>
     <string name="internet_fail">Fail to connect to the internet</string>
+    <string name="fail_to_get_restaurant">Fail to search on restaurants</string>
     <string name="ok">OK</string>
+    <string name="gps_not_granted">Sorry, this app needs permission location</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
