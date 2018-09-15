@@ -46,8 +46,6 @@ public class GpsManager extends LocationCallback {
 
     private LocationRequest getLocationRequest() {
         return LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(30_000L)
-                .setFastestInterval(20_000L);
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 }
